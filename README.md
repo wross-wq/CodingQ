@@ -7,11 +7,20 @@
 
 ## Get started
 
-1. Install dependencies
+1. Install expo router
 
    ```bash
-   npm install
+   npx expo install expo-router react-native-safe-area-context react-native-screens expo-linking 
+   expo-constants expo-status-bar
    ```
+
+
+3. Install react-native-reanimated and react-native-svg(react-native-svg@15.2.0 is recommended.)
+
+   ```bash
+   npm install react-native-reanimated-confetti react-native-svg  
+   ```
+
 
 2. Start the app
 
