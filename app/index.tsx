@@ -37,12 +37,25 @@ export default function Index() {
      }
 
        if (selectedAnswer === correctAnswer) {
-        Alert.alert('Congratulations, you earned "Fibonacci" badge!');
         triggerConfetti();
+        showCongratsAlert();
      } else {
         triggerShake();
         showTryAgainAlert();
     }
+  };
+
+  const showCongratsAlert = () => {
+    Alert.alert('Congratulations, you earned "Fibonacci" badge!',
+      '',
+      [
+        {
+          text: 'Good Job!',
+          onPress: () => setSelectedAnswer(null),
+        },
+      ],
+      { cancelable: false}
+    );
   };
 
   const showTryAgainAlert = () => {
