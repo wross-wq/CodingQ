@@ -3,15 +3,26 @@ import { StatusBar } from "expo-status-bar";
 import React, { useState } from 'react';
 import ButtonComponent from "../components/ButtonComponent";
 import ConfettiController from '../components/ConfettiController';
-import { SafeAreaView } from "react-native-safe-area-context";
 import { TouchableOpacity, StyleSheet, Text, View, Image, Alert} from "react-native";
 import Animated, { useSharedValue, useAnimatedStyle, withTiming, withRepeat, withDelay, withSequence,
 } from 'react-native-reanimated';
 
 export default function Index() {
 
+  const errorMessages = [
+    'Hint: Think about how the the Fibonacci Sequence works.',
+    'So close! remember muli-branch.',
+    'Not Quite. The time complexity is O(n^2).'
+  ];
+
+  const getRandomErrorMessage = () => {
+    const randomIndex = Math.floor(Math.random() * errorMessages.length);
+    return errorMessages[randomIndex];
+  };
+
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [confettiVisible, setConfettiVisible] = useState(false);
+  const [showBadge, setShowBadge] = useState(false);
   const correctAnswer = 'recursion';
 
   const shakeX = useSharedValue(0);
@@ -30,6 +41,11 @@ export default function Index() {
     );
   };
 
+  const resetState = () => {
+    setSelectedAnswer(null);
+    setShowBadge(false);
+  };
+
   const handleSubmit = () => { 
 
       if (selectedAnswer === null) {
@@ -39,6 +55,7 @@ export default function Index() {
        if (selectedAnswer === correctAnswer) {
         triggerConfetti();
         showCongratsAlert();
+        triggerBadge();
      } else {
         triggerShake();
         showTryAgainAlert();
@@ -51,7 +68,7 @@ export default function Index() {
       [
         {
           text: 'Good Job!',
-          onPress: () => setSelectedAnswer(null),
+          onPress: () => setSelectedAnswer(null), 
         },
       ],
       { cancelable: false}
@@ -59,7 +76,8 @@ export default function Index() {
   };
 
   const showTryAgainAlert = () => {
-    Alert.alert('Hint: Think about how the the Fibonacci Sequence works.',
+    const errorMessage = getRandomErrorMessage();
+    Alert.alert(errorMessage,
       '',
       [
         {
@@ -78,6 +96,11 @@ export default function Index() {
       setSelectedAnswer(buttonId);
     }
   }
+
+  const triggerBadge = () => {
+    setShowBadge(true);
+    setTimeout(() => setShowBadge(false), 3000);
+  };
 
   const triggerConfetti = () => {
     setConfettiVisible(true);
@@ -110,6 +133,11 @@ export default function Index() {
         <Text style={styles.submitButtonText}> Submt </Text>
         </TouchableOpacity>
         </Animated.View>
+        {showBadge && (
+        <View style = {styles.badgeContainer}>
+          <Image source={require('../assets/images/icon.png')} style={styles.badgeImage}/>
+          </View>
+          )}
 
         <ConfettiController visible={confettiVisible} />
         
@@ -134,7 +162,7 @@ const styles = StyleSheet.create({
     height: 300,
     },
     submitButton: {
-      backgroundColor: 'green',
+      backgroundColor: 'lightgreen',
       padding: 20,
       borderRadius: 10,
       margin: 10,
@@ -144,5 +172,19 @@ const styles = StyleSheet.create({
       color: 'black',
       fontWeight: 'bold',
       textAlign: 'center',
+    },
+    badgeContainer: {
+      flex: 1,
+      position: 'absolute',
+      backgroundColor: 'black',
+      top: 200,
+      padding: 10,
+      borderRadius: 50,
+      zIndex: 1,
+    },
+    badgeImage: {
+      width: 150,
+      height: 150,
+      resizeMode: 'cover',
     }
 })

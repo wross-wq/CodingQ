@@ -2,6 +2,9 @@
 
 # Thank you for your time and consideration!
 
+## This is a simple app built in React Native. 
+## The app prompts the user with a question and gives four button options as answers.
+
 ## Get started
 
 1. Install dependencies
