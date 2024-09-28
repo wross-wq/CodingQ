@@ -7,26 +7,24 @@
 
 ## Get started
 
+
 1. Install expo router
 
    ```bash
    npx expo install expo-router react-native-safe-area-context react-native-screens expo-linking 
    expo-constants expo-status-bar
    ```
-
-
-3. Install react-native-reanimated and react-native-svg(react-native-svg@15.2.0 is recommended.)
+2. Install react-native-reanimated and react-native-svg(react-native-svg@15.2.0 is recommended.)
 
    ```bash
    npm install react-native-reanimated-confetti react-native-svg  
    ```
-
-
-2. Start the app
+3.  Start the app
 
    ```bash
     npx expo start -c
    ```
+4. Download the Expo Go app on your device and scan the QR code!
 
 In the output, you'll find options to open the app in a
 
